@@ -252,18 +252,16 @@ export class HomeComponent implements OnInit {
 
           this.taskLowPriority.splice(i,1)
         }
-      }
-    })
-    console.log(item)
-    let data = new FormData()
-    data.append('taskid',item.id)
-    console.log(item.id)
-    this.dataService.deleteTask(data).subscribe((res)=>{
-      // this.getAllTask();
-      this.snackBar.open('Task Deleted','',{
-        duration:2000
+          let data = new FormData()
+          data.append('taskid',item.id)
+          this.dataService.deleteTask(data).subscribe((res)=>{
+          this.snackBar.open('Task Deleted','',{
+          duration:2000
       })
     })
+      }
+    })
+
   }
 }
 
