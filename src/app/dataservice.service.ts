@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class DataserviceService {
 
-  apiURL = 'https://devza.com/tests/tasks'
+  apiURL = 'http://devza.com/tests/tasks'
   header = new HttpHeaders({
     AuthToken:'heWVzN2w5Ktb6iwqw3shNDAJyUCrted6'
   })
