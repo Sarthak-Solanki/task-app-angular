@@ -238,7 +238,7 @@ export class HomeComponent implements OnInit {
 
   deleteTask(item,i,type){
     let dialog = this.dialog.open(DeleteDialogueComponent)
-    dialog.beforeClose().subscribe((res)=>{
+    dialog.afterClosed().subscribe((res)=>{
       console.log(res)
       if(res=="true"){
         if(type=="1"){
