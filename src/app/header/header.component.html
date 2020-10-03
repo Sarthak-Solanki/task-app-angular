@@ -1,0 +1,9 @@
+<mat-toolbar style="z-index: 12;" class = "sticky sticky__top-0" color="primary">
+  <div class = "flex flex__align-center">
+  <span >{{getHeaderTitle}}</span>
+  <span *ngIf="getHeaderSubtitle" class="breadcrumbs__secondary groupTitle flex flex__align-center">
+<img src="../../assets/pngs/baseline_keyboard_arrow_right_white_18dp.png" alt="">
+    {{getHeaderSubtitle}}
+  </span>
+</div>
+</mat-toolbar>

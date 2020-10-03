@@ -1,0 +1,136 @@
+.box__container-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2rem;
+}
+.box__container-grid-3{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2rem;
+}
+
+.box__container{
+  &-box{
+      background-color: #ffff;
+      height: 30rem;
+      border-radius: 0.25rem;
+      border: 1px solid #e8edf0;
+      overflow: auto;
+
+
+      &:hover{
+          // background-color: #F2F4F5;
+          // cursor: pointer;
+      }
+      // &:active{
+      //     background-color:#F2F4F5;
+      // }
+  }
+}
+
+table{
+  width: 100%;
+  box-shadow: none;
+}
+
+.search{
+  display: flex;
+  background: white;
+  z-index: 5;
+    align-items: center;
+    position: relative;
+    &__icon{
+      position: absolute;
+    padding-left: .2rem;
+    display: flex;
+    align-items: center;
+    padding-left: .5rem;
+    }
+    &__input{
+      padding: .8rem 3rem .8rem 3rem;
+    width: 40rem;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1rem;
+    }
+    &__input:focus{
+      border: 2px solid lightblue;
+      border-radius: 5px;
+    }
+}
+
+.form{
+  &__group{
+
+    margin-bottom: 2rem;
+
+  }
+  &__input{
+    font-size: 1rem;
+    padding: 1.25rem;
+    border-radius: 2px;
+    background-color: #f8f9fa;
+    border: none;
+    border: 1px solid #e8edf0;
+    width: 92%;
+    display: block;
+    color: inherit;
+    height: 10px;
+    outline: none;
+    &:focus{
+      border: 1px solid lightblue;
+    }
+  }
+  &__label{
+    font-weight:700 ;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    display: block;
+    color: #253858;
+    transition: all 0.2s;
+  }
+}
+.cdk-drop-list{
+ height: calc(100% - 6rem)
+}
+
+
+.lozenge{
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  color: white;
+  display: inline-block;
+  font-size: 10px;
+  font-family: 'fontbold';
+  line-height: 1;
+  max-width: 100%;
+  padding: 0.3rem;
+  text-transform: uppercase;
+  vertical-align: baseline;
+  min-width: 4rem;
+  text-align: center;
+  &-success, &-Green, &-GREEN{
+      background-color: rgba(#00792C, 25%);
+      color: #00792C;
+  }
+  &-danger, &-Red, &-RED{
+      background-color: rgba(#FFBDAD, 25%);
+      color: #FF5630;
+  }
+  &-warning, &-Orange, &-orange, &-ORANGE{
+      background-color: rgba(#FFF0B3, 75%);
+      color: #FFAB00;
+  }
+  &-gray{
+      background-color: #ecf0f1;
+      color: #5E6C84;
+  }
+
+}
+
+.not-Selected{
+  border: 2px solid #f3424275;
+
+  border-radius: 6px;
+}

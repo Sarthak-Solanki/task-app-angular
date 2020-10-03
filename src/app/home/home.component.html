@@ -1,0 +1,258 @@
+
+<mat-sidenav-container>
+
+  <mat-sidenav  mode="over" align="start" position = "end" [(opened)]= "opened">
+    <div class = "drawer">
+      <div class = "drawer__content-header">
+        <div class = "drawer__header-copy">
+         Add Task
+        </div>
+      </div>
+      <div class= ""></div>
+      <div class = "drawer__content-body ">
+     <div class = "form__group">
+       <div class = "form__label">Task Name</div>
+       <input id = "messageList" [formControl] = "message"  type="text" class = "form__input">
+       <mat-error *ngIf="message.hasError('required')  && (message.dirty || message.touched)"> Detail is required </mat-error>
+
+     </div>
+     <div class = "form__group">
+      <div class = "form__label">Due Date</div>
+      <mat-form-field style="width:100%" appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input [formControl] = "due_date" matInput [matDatepicker]="picker" [min]='todaysDate'>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+    <div class = "form__group">
+      <div class = "form__label">Priority</div>
+      <ng-select [(ngModel)] = "priority" class="u-height-44" appearance="outline" [clearable]="false" bindLabel="name"
+      (change)="onPriorityChange()"  [searchable]="false" placeholder = "Select Priority" >
+      <ng-option *ngFor="let item of priorityArray" [value]="item.id">{{item.Name}}</ng-option>
+    </ng-select>
+    </div>
+    <div class = "form__group">
+      <div class = "form__label">Assigned to</div>
+      <ng-select [(ngModel)] = "assigendTo" class="u-height-44" appearance="outline" [clearable]="false" bindLabel="name"
+      (change)="onPriorityChange()"  [searchable]="false" placeholder = "Assign User" >
+      <ng-option *ngFor="let item of userData" [value]="item.id">{{item.name}}</ng-option>
+    </ng-select>
+    </div>
+    <div class = "drawer__footer flex flex__justify__space-between">
+      <button *ngIf = "!updateStatus" (click) = "createTask()" color="primary" mat-raised-button>
+        Create Task
+        <img class = "u-margin-left-half" *ngIf = "loading" src="../../assets/pngs/loading.svg" alt="">
+      </button>
+      <button [ngClass]="{'u-disable': loading}" *ngIf = "updateStatus" (click) = "updateCurrentTask()" color="primary" mat-raised-button>
+        Update Task
+        <img class = "u-margin-left-half" *ngIf = "loading" src="../../assets/pngs/loading.svg" alt="">
+      </button>
+
+    </div>
+  </div>
+
+    </div>
+</mat-sidenav>
+
+<mat-sidenav-content>
+
+<div class = "height__width-100 background__blue">
+  <app-header [headerTitle] = "headerTitle"></app-header>
+  <div class="u-padding-2">
+    <div class = "flex flex__align-center flex__justify-end">
+      <!-- <div>
+        <div class="search">
+          <div class="search__icon">
+            <mat-icon class="mat-18">search</mat-icon>
+          </div>
+          <input placeholder="Search" type="text" (keyup)="applyFilter($event.target.value)" class="search__input">
+        </div>
+      </div> -->
+      <div>
+        <button mat-raised-button color="primary" class = "u-margin-left-half" (click)="openAddTaskDrawer()">Add Task</button>
+
+      </div>
+    </div>
+<!--
+  <table mat-table [dataSource]="taskData" class=" u-margin-top-2 ">
+    <ng-container matColumnDef="taskDetails">
+      <th mat-header-cell *matHeaderCellDef> Task Details </th>
+      <td mat-cell *matCellDef="let element"> {{element.message}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef> Due By </th>
+      <td mat-cell *matCellDef="let element"> {{element.due_date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef> Priority </th>
+      <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="assignedTo">
+      <th mat-header-cell *matHeaderCellDef> Assigned to </th>
+      <td mat-cell *matCellDef="let element"> {{element.assigned_name}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="taskColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: taskColumns;"></tr>
+  </table> -->
+  <div class="box__container-grid box__container-grid-3 u-margin-top-2">
+    <div class = "box__container-box ">
+      <div class="search u-margin-sd-1 u-padding-tb-1 sticky sticky__top-0">
+        <div class="search__icon">
+          <mat-icon class="mat-18">search</mat-icon>
+        </div>
+        <input placeholder="Search" type="text"  [(ngModel)]="highPSearch" class="search__input">
+      </div>
+
+      <div  #highPriorityList="cdkDropList"  cdkDropList [cdkDropListData]="taskHighPriority" [cdkDropListConnectedTo]="[mediumPriorityList,lowPriorityList]"
+      (cdkDropListDropped)="dropList($event)"
+      >
+      <div *ngIf = "taskHighPriority.length==0">
+        <div class = "emptyState flex  flex__justify-center ">
+          <div>
+
+          <img style = "height: 200px; width: 200px;" src="../../assets/emptyState/notfound.svg" alt="">
+            <div style="font-size: 1.3rem;
+            color: #FF5630;" class = "flex flex__justify-center u-margin-top-2">
+              <span>No High Priority Task Found</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div cdkDrag *ngFor="let item of taskHighPriority | filter:highPSearch;let i = index" class = "list__main flex">
+        <div class = "list__col u-max-width-65">
+          <div class = "flex flex__col u-max-width-100">
+            <div class = "list__title u-ellipses">
+              {{item.message}}
+            </div>
+            <div class = "u-width-9rem">
+            <div class = "list__subtitle flex flex__align-center flex__justify__space-between">
+              Priority :
+              <div class = " lozenge lozenge-danger">High</div>
+            </div>
+            <div class = "list__subtitle flex flex__align-center flex__justify__space-between">
+              Assign to :
+              <span class = "lozenge lozenge-gray">{{item.assigned_name? item.assigned_name:"UnAssinged"}}</span>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="list__col  flex flex__align-center ">
+         <button mat-button color = "primary" (click)="openUpdateDrawer(item)">Update</button>
+        <div (click)="deleteTask(item,i,'1')" class = " btn btn__icon" >
+          <mat-icon color = "warn" class="mat-18">delete_outline</mat-icon>
+        </div>
+        </div>
+        </div>
+      </div>
+
+    </div>
+    <div  class = "box__container-box">
+      <div  class="search u-margin-sd-1 u-padding-tb-1 sticky sticky__top-0">
+        <div class="search__icon">
+          <mat-icon class="mat-18">search</mat-icon>
+        </div>
+        <input placeholder="Search" type="text" [(ngModel)]="mediumPSearch" class="search__input">
+      </div>
+      <div #mediumPriorityList="cdkDropList"  cdkDropList [cdkDropListData]="taskMediumPriority" [cdkDropListConnectedTo]="[highPriorityList,lowPriorityList]" (cdkDropListDropped)="dropList($event)">
+        <div *ngIf = "taskMediumPriority.length==0">
+          <div class = "emptyState flex  flex__justify-center ">
+            <div>
+
+            <img style = "height: 200px; width: 200px;" src="../../assets/emptyState/notfound.svg" alt="">
+              <div style="font-size: 1.3rem;
+              color: #FFAB00;" class = "flex flex__justify-center u-margin-top-2">
+                <span>No Medium Priority Task Found</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div cdkDrag *ngFor="let item of taskMediumPriority | filter:mediumPSearch ;let i = index" class = "list__main flex">
+        <div class = "list__col u-max-width-65">
+          <div class = "flex flex__col u-max-width-100">
+            <div class = "list__title u-ellipses">
+              {{item.message}}
+            </div>
+            <div class = "u-width-9rem">
+            <div class = "list__subtitle  flex flex__align-center flex__justify__space-between">
+              Priority :
+              <span class = " lozenge lozenge-warning">Medium</span>
+            </div>
+            <div class = "list__subtitle flex flex__align-center flex__justify__space-between">
+              Assign to :
+              <span class = "lozenge lozenge-gray">{{item.assigned_name? item.assigned_name:"UnAssinged"}}</span>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="list__col  flex flex__align-center ">
+          <button mat-button color = "primary" (click)="openUpdateDrawer(item)">Update</button>
+         <div (click)="deleteTask(item,i,'2')"  class = " btn btn__icon" >
+           <mat-icon color = "warn" class="mat-18">delete_outline</mat-icon>
+         </div>
+         </div>
+        </div>
+      </div>
+
+    </div>
+    <div  class = "box__container-box">
+      <div  class="search u-margin-sd-1 u-padding-tb-1 sticky sticky__top-0">
+        <div class="search__icon">
+          <mat-icon class="mat-18">search</mat-icon>
+        </div>
+        <input placeholder="Search" type="text" [(ngModel)]="lowPSearch" class="search__input">
+      </div>
+      <div #lowPriorityList="cdkDropList" cdkDropList [cdkDropListData]="taskLowPriority" [cdkDropListConnectedTo]="[highPriorityList,mediumPriorityList]" (cdkDropListDropped)="dropList($event)">
+        <div *ngIf = "taskLowPriority.length==0">
+          <div class = "emptyState flex  flex__justify-center ">
+            <div>
+
+            <img style = "height: 200px; width: 200px;" src="../../assets/emptyState/notfound.svg" alt="">
+              <div style="font-size: 1.3rem;
+              color: #5E6C84;" class = "flex flex__justify-center u-margin-top-2">
+                <span>No Low/No Priority Task Found</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div cdkDrag *ngFor="let item of taskLowPriority | filter:lowPSearch ;let i = index" class = "list__main flex">
+        <div class = "list__col u-max-width-65">
+          <div class = "flex flex__col u-max-width-100">
+            <div class = "list__title u-ellipses">
+              {{item.message}}
+            </div>
+            <div class = "u-width-9rem">
+            <div class = "list__subtitle flex flex__align-center flex__justify__space-between">
+              priority :
+              <span class = "lozenge lozenge-gray">Low/No</span>
+            </div>
+            <div class = "list__subtitle flex flex__align-center flex__justify__space-between">
+              Assign to :
+              <span class = "lozenge lozenge-gray">{{item.assigned_name? item.assigned_name:"UnAssinged"}}</span>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="list__col  flex flex__align-center ">
+          <button mat-button color = "primary" (click)="openUpdateDrawer(item)">Update</button>
+         <div (click)="deleteTask(item,i,'3')"  class = " btn btn__icon" >
+           <mat-icon color = "warn" class="mat-18">delete_outline</mat-icon>
+         </div>
+         </div>
+
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+</mat-sidenav-content>
+</mat-sidenav-container>

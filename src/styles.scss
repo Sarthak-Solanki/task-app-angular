@@ -1,1 +1,279 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.background{
+&__blue{
+  background: #F4FAFC;
+}
+&__white{
+  background: #fff;
+}
+}
+.height__width-100{
+  height: 100vh;
+  width: 100%;
+  overflow: auto;
+}
+
+.filter__header{
+  padding: .8rem;
+  background: #F2F4F5;
+  position: sticky;
+  top: 53px;
+  z-index: 22;
+}
+.subs__header{
+  padding: .8rem;
+  background: #F2F4F5;
+  position: sticky;
+  top: 65px;
+  z-index: 22;
+}
+
+
+
+.list{
+  &__title{
+    font-size: 1rem;
+    line-height: 2rem;
+    font-weight: 600;
+  }
+  &__subtitle{
+    color: #7a869a;
+    margin-top: .25rem;
+    font-size: 12px;
+  }
+&__main{
+  border: 1px solid #e8edf0;
+  margin-top: -1px;
+  justify-content: space-between;
+    margin: 1rem;
+
+}
+&__col{
+  // padding: 2rem 1.5rem;
+  padding:.5rem 1rem;
+    display: flex;
+    -webkit-box-orient: vertical;
+    flex-shrink: 0;
+    position: relative;
+}
+}
+
+
+
+//utilities
+
+.input{
+  font-size: 1rem;
+  border-radius: 2px;
+  background-color: #fff;
+  font-family: inherit;
+  border: 1px solid #e8edf0;
+  /* width: 100%; */
+  display: block;
+  color: inherit;
+  /* height: 44px; */
+  transition: all .2s;
+  padding: .5rem;
+  width: 90%;
+  border: 1px solid #e8edf0;
+  outline: none;
+
+}
+
+.flex{
+  display: flex;
+  &__align-center{
+    align-items: center;
+  }
+  &__align-baseline{
+  align-items: baseline;}
+  &__justify-center{
+    justify-content: center;
+  }
+  &__justify-end{
+    justify-content: flex-end;
+  }
+  &__justify__space-around{
+    justify-content: space-around;
+  }
+  &__justify__space-between{
+
+    justify-content: space-between
+  }
+  &__col{
+    flex-direction: column;
+  }
+}
+
+.sticky{
+  position: sticky !important;
+  &__top-0{
+    top: 0px;
+  }
+  &__top-5{
+    top: 5rem;
+  }
+  &__top-2{
+    top:2rem
+  }
+}
+.u-padding-2{
+  padding: 2rem;
+}
+.u-padding-half{
+  padding: .5rem;
+}
+.u-padding-tb-1{
+  padding: 1rem 0rem;
+}
+
+.u-width-30{
+  width: 35%;
+}
+.u-max-width-65{
+  max-width: 65%;
+}
+
+.u-max-width-100{
+  max-width: 100%;
+}
+.u-width-9rem{
+  width: 9rem;
+  max-width: 9rem;
+  min-width: 9rem
+}
+
+.u-margin-1{
+  margin: 1rem;
+}
+.u-margin-top-half{
+  margin-top: .5rem !important;
+}
+.u-margin-top-2{
+  margin-top: 2rem !important;
+}
+.u-margin-bottom-5{
+  margin-bottom: 5rem !important;
+}
+.u-margin-bottom-0{
+  margin-bottom: 0rem !important;
+}
+.u-margin-bottom-2{
+  margin-bottom: 2rem !important;
+}
+.u-margin-left-half{
+  margin-left: .5rem !important;
+}
+.u-margin-right-half{
+  margin-right: .5rem;
+}
+.u-margin-sd-1{
+  margin: 0rem 1rem;
+}
+
+.u-disable{
+  pointer-events: none;
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+
+
+.u-ellipses{
+  white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;
+width: 100%;
+display: block;
+}
+
+.btn{
+  &__icon{
+    padding: .2rem;
+    background: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: .25rem;
+    padding: .25rem;
+    cursor: pointer;
+    display: flex;
+    -webkit-box-orient: vertical;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s;
+
+  }
+  &:hover{
+    background: #ecf0f1;
+  }
+}
+
+
+mat-sidenav{
+  width: 600px;
+}
+
+.drawer {
+
+  &__content{
+      &-header{
+          font-size: 18px;
+          position: sticky;
+          top: 0;
+          padding: 1rem 2rem;
+          border-bottom: 1px solid #ecf0f1;
+          z-index: 22;
+          background: #fff;
+
+      }
+      &-body{
+          padding: 2rem;
+      }
+  }
+  &__footer{
+    position: sticky;
+    bottom: 0px;
+    z-index: 22;
+    background: white;
+    padding: .8rem;
+    border-top: 2px solid #e8edf0;
+  }
+
+}
+.drawer__right{
+  right: 0;
+}
+.drawer__medium{
+  width: 40%;
+}
+
+
+.drawer__show{
+  transform: translate(0%, 0);
+  opacity: 1;
+}
+.box__container-misc {
+  color: red;
+}
+

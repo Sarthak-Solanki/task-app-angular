@@ -1,0 +1,21 @@
+// .input{
+//   font-size: 1rem;
+//   border-radius: 2px;
+//   background-color: #fff;
+//   font-family: inherit;
+//   border: 1px solid #e8edf0;
+//   /* width: 100%; */
+//   display: block;
+//   color: inherit;
+//   /* height: 44px; */
+//   transition: all .2s;
+//   padding: .5rem;
+//   width: 90%;
+//   border: 1px solid #e8edf0;
+//   outline: none;
+
+// }
+::ng-deep .mat-dialog-container{
+  min-width: 20rem;
+  min-height: 15rem;
+}
